@@ -411,7 +411,7 @@
 	
 	现在讨论无穷小转动.个人认为无穷小转动可以认为是与单位变换之差的范数无穷小(分析的意义上)的转动.具体展开来,对于一个无穷小转动,我们可以将其矩阵表示为:
 	
-	\[A=I+\D\theta_i(\Im S_i)\]
+	\[A=I+\D\theta_i(\im S_i)\]
 	
 	其中$\D\theta_i$分别对应$xy,yz,zx$平面的无穷小角位移,$S_i$是如下三个反对称矩阵:
 	
@@ -419,19 +419,19 @@
 	S_1=
 	\begin{pmatrix}
 		0&0&0\\
-		0&0&\Im\\
-		0&-\Im&0
+		0&0&\im\\
+		0&-\im&0
 	\end{pmatrix}
 	,\quad S_2=
 	\begin{pmatrix}
-		0&0&-\Im\\
+		0&0&-\im\\
 		0&0&0\\
-		\Im&0&0
+		\im&0&0
 	\end{pmatrix}
 	,\quad S_3=
 	\begin{pmatrix}
-		0&\Im&0\\
-		-\Im&0&0\\
+		0&\im&0\\
+		-\im&0&0\\
 		0&0&0
 	\end{pmatrix}
 	\]
@@ -496,9 +496,8 @@
 	\end{matrix}
 	\]
 	
-	于是lc老师又讲了一堆什么Caylay-Klein参数,连$\mathrm{SU(2)}$都跑出来了,惹不起惹不起跑路了orz
+	三维空间的转动还有一种表示方法是Caylay-Klein参数.其核心是将$\mathbb{R}^3$与二维无迹Hermite矩阵同构,此时矩阵的行列式对应$\mathbb{R}^3$中向量的模方.而幺正(酉)相似不改变矩阵的行列式(一般的相似即可,这是单纯避免一对多无法形成映射?),所以幺正相似能够诱导一个三维的正常转动.这建立了一个$\mathrm{SO(3)}$到$\mathrm{SU(2)}$的同态,其中$\mathrm{SU(2)}$是二维特殊幺正群.
 	
-	或许我现在应该去学习一下什么Anorld以恶补数学基础(
 	
 	\newpage
 	
@@ -545,12 +544,108 @@
 	
 	
 	
+\section*{10 哈密顿力学的数学基础}
+	
+	试图堆砌数学以掩盖自己摸鱼了大半天的事实.或许会学到简单的流形,然后就跑回正轨.
+	
+	说实话,数学对物理来说不是必须品,就比如Faraday的力线,不过想到这b东西高中的时候把我恶心了多久,最好还是多学点数学比较好.连话都说不清楚说实话不怎么光荣.
+	
+\subsection*{0 GTM023\cite{GTM023}节选-仿射空间}
+	
+	主要是这东西我没看见哪本线代教了,但是Anorld一上来就跟我扯了这个,还是学一下比较好
+	
+	这里Einstein求和满地乱爬了.
+	
+	\textbf{点与向量}.设$E$是一个$n$维实线性空间,$A$是一堆(量词)某种元素的结合,$P,Q,...\in A$叫做\textbf{点}.现在我们规定点之间与点和向量之间的关系如下:
+	
+	1.对于每一个有序对$(P,Q)$存在一个$E$中的向量,称为\textbf{差向量},记为$\overrightarrow{PQ}$.高级一点的话说就是存在一个$A\times A$到$E$的映射.
+	
+	2.对于任意一个点$P\in A$和$E$中的任意一个向量$x$,存在唯一的$Q\in A$使得$\overrightarrow{PQ}=x$.
+	
+	3.$\forall P,Q,R\in A$,满足
+	
+	\[\overrightarrow{PQ}+\overrightarrow{QR}=\overrightarrow{PR}\]
+	
+	那么$A$就构成了一个$n$维\textbf{仿射空间},$E$称为$A$的\textbf{差空间}.
+	
+	直观上看,仿射空间可以理解成一个没有坐标轴的线性空间.
+	
+	第三点的加入给出了$\overrightarrow{PP}+\overrightarrow{PQ}=\overrightarrow{PQ}$,于是$\overrightarrow{PP}=0,\forall P\in A$.从而$\overrightarrow{PQ}=-\overrightarrow{QP}$.同时也易证平行四边形定则$\overrightarrow{P_1P_2}=\overrightarrow{Q_1Q_2}\Leftrightarrow\overrightarrow{P_1Q_1}=\overrightarrow{P_2Q_2}$.
+	
+	对于任意线性空间$E$,显然动动手就能构造出来一个以之为差空间的仿射空间,直接令仿射空间的元素就是$E$中的向量,差映射就是向量减法即可.
+	
+	设$A$是一个仿射空间,有一个点$O$被认为是\textbf{原点},那么$A$中的每一点都为向量$x=\overrightarrow{OP}$所确定.显然这样下来由向量$x,y$诱导的两个点之差就是$x-y$.
+	
+	(从某种角度说,$A$中的每个点都能诱导一个线性空间.好像有流形内味了?)
+	
+	\textbf{仿射坐标系}.一个仿射坐标系$(O;x_1,\cdots,x_n)$包含了一个固定点$O$,称为\textbf{原点},以及差空间$E$的一组基$x_\nu$,那么$A$中的每一个点$P$都能被$n$元数组$\xi^\nu$表示:
+	
+	\[\overrightarrow{OP}=\xi^\nu x_\nu\]
+	
+	其中$\xi^\nu$称为$P$在该仿射坐标系下的\textbf{仿射坐标}.
+	
+	现在考虑两个仿射坐标系$(O,x_\mu),(O',y_\nu)$,设$x^\mu$到$y^\nu$的过渡矩阵$\alpha_{\nu}^{~\mu}$(原书胡乱使用了求和约定,但是我也不知道这是什么张量),$O'$在前一个仿射坐标系下的坐标$\beta^\mu$,那么有
+	
+	\[y_\nu=\alpha_{\nu}^{~\mu}x_\mu,\quad\overrightarrow{OO'}=\beta^{\mu}x_{\mu}\]
+	
+	现在设点$P$在二仿射坐标系下的坐标$\xi^\mu,\eta^\nu$,那么有
+	
+	\[\overrightarrow{OP}=\xi^{\mu}x_{\mu},\quad\overrightarrow{O'P}=\eta^{\nu}y_{\nu}\]
+	
+	代入$\overrightarrow{O'P}=\overrightarrow{OP}-\overrightarrow{OO'}$,得
+	
+	\[\eta^{\nu}y_{\nu}=\xi^{\mu}x_{\mu}-\beta^{\mu}x_{\mu}\]
+	
+	再代入基变换,得
+	
+	\[\eta^{\nu}\alpha_{\nu}^{~\mu}x_\mu=\xi^{\mu}x_{\mu}-\beta^{\mu}x_{\mu}\]
+	
+	于是有
+	
+	\[\eta^{\nu}\alpha_{\nu}^{~\mu}=\xi^{\mu}-\beta^{\mu}\]
+	
+	即
+	
+	\[\eta^{\nu}=\alpha^{\nu}_{~\mu}(\xi^{\mu}-\beta^{\mu})\]
+	
+	(半吊子指标运算,献丑了orz)
+	
+	(这不就是逆变矢量马)
+	
+	
+	\textbf{仿射子空间}.
+	
+	\textbf{仿射映射}.
+	
+	\textbf{欧氏空间}.(oushi不比Euclidean省事多了?)
+	
+	完蛋,虽然写了笔记,但是还是摸鱼了一整天orz
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage	
 	
 	\begin{thebibliography}{?}
 		\bibitem{LiuChuan} 刘川,理论力学[M],北京,北京大学出版社,2019.09
 		\bibitem{Landau} Landau,Lifshitz著,李俊峰,鞠国兴译,力学(第五版)[M],北京,高等教育出版社,2007.04
 		\bibitem{LiangKunMiao} 梁昆淼,力学(理论力学部分)[M],不知道哪里,不知道什么出版社,不知道什么时候
 		\bibitem{ShuYouSheng} 舒幼生,力学[M],北京,北京大学出版社,2005.09
+		\bibitem{GTM023} W.H.Greub,Linear Algebra(Third Edition)[M],New York,Springer,1967
 	\end{thebibliography}
 	
 	
