@@ -1,5 +1,6 @@
 \documentclass[UTF8]{article}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
 \usepackage{ctex}
 \usepackage{graphicx}
 \usepackage{float}
@@ -612,28 +613,189 @@
 	
 	(这不就是逆变矢量马)
 	
+	\textbf{仿射子空间}.设有一个仿射空间$A$,那么$A$的一个仿射子空间$A_1$是这样的一个$A$的子集:$\forall P,Q\in A_1$,全体向量$\overrightarrow{PQ}$构成的集合是差空间$E$的一个子空间.
 	
-	\textbf{仿射子空间}.
+	设$A_1,A_2$为两个仿射空间,其差空间分别为$E_1,E_2$,那么若$E_1$是$E_2$的子空间或反之,则称$A_1,A_2$\textbf{平行}.易证平行的仿射空间要么一个包含于另一个,要么交集为空.
 	
-	\textbf{仿射映射}.
+	\textbf{仿射映射}.设$\varphi: P \rightarrow P'$是一个$A$到自身的映射.若该映射满足如下条件:
 	
-	\textbf{欧氏空间}.(oushi不比Euclidean省事多了?)
+	1.$\overrightarrow{P_{1}Q_{1}} = \overrightarrow{P_{2}Q_{2}}$,则$\overrightarrow{P_{1}'Q_{1}'} = \overrightarrow{P_{2}'Q_{2}'}$,也即$\varphi$保二点之差.
 	
-	完蛋,虽然写了笔记,但是还是摸鱼了一整天orz
+	2.由$\varphi$诱导的映射$\psi: \overrightarrow{PQ} \rightarrow \overrightarrow{P'Q'}$是线性映射
 	
+	那么则称映射$\varphi$是\textbf{仿射映射}.
 	
+	不难证明给定两个点$O,O'$和线性映射$\psi$,那么存在唯一的仿射映射$\varphi$使得$\varphi(O)=O'$,且$\psi$是其诱导的线性映射.
 	
+	若在$A$中给定了一个原点$O$,那么所有的仿射映射都具有如下形式:
 	
+	\[\varphi: x \rightarrow \psi(x) + b\]
 	
-	
-	
-	
-	
-	
-	
-	
+	若一个仿射变换诱导的线性变换是单位变换,那么称该仿射变换是一个\textbf{平移}.
 	
 	
+	\textbf{欧氏空间}.(oushi不比Euclidean省事多了?)如果一个仿射空间的差空间上定义了一个正定的内积,那么这个仿射空间称为\textbf{欧氏空间}.
+	
+	剩下的内容请自己找本线代书看.都讲过了.
+	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\subsection*{1 Legendre变换\cite{Anorld}}
+	
+	Legendre变换把一个线性空间上的函数变成其对偶空间上的函数.
+	
+	不妨先讨论一元函数的Legendre变换.设$y=f(x)$为一凸函数,且满足$f''(x)>0$.
+	
+	那么定义函数$f$的Legendre变换式$g(p)$:对每一个$p$值,函数$F(p,x)=px-f(x)$在$x=x(p)$时有最大值,那么定义$g(p):=F(p,x(p))$.
+	
+	由驻定条件$\partial F/\partial x=0$可得$x(p)$满足$p=f'(x)$,也即$x(p)=(f')^{-1}(p)$.凸函数保证了Legendre变换的存在唯一性.
+	
+	不难证明:Legendre变换具有对合性.即函数进行两次Legendre变换后得到自己.
+	
+	Legendre变换的对偶性:若两个函数$f,g$互为Legendre变换,那么它们在Young的意义下对偶:
+	
+	\[x p \le f(x)+g(p)\]
+	
+	这由Legendre变换的定义立得.
+	
+	(不过欧姆尼赛亚在上啊,这跟对偶空间的对偶有半毛钱关系吗?)
+	
+	至于多元函数的Legendre变换,与之完全相似,就不赘述了.
+	
+	Legendre变换在理论力学中的一大应用就是从Lagrange力学导出Hamiton力学.
+	
+	\newpage
+	
+	
+	
+	
+	
+\subsection*{10 群(超级青春版)}
+	
+	zyf老师的笑话:当年我还在上大学的时候,我们课上群论,结果上课的时候来了个人,从头到尾一直记,非常认真,令数院学生都叹为观止.结果下课的时候该人愤怒地破口大骂:"什么群论,净是数学!"我才明白他可能把这门课理解成什么"群众运动论"了.........
+
+	这里一部分参考了zyf官方推荐的张贤科高等代数学,讲的挺好的,很适合物理壬.....然后还会塞一部分刘川理力的附录,可能还会塞李新征老师的群论或者直接抽代......我也不知道要哪几本,物理的觉得太浅,数学的看不懂orz
+	
+	这里也就图个乐,看看概念了解一下,真要学物院还有两门研本课李群与李代数,群论在物理学中的运用.........orz
+	
+	\newtheorem*{Group}{定义}
+	
+	\begin{Group}
+		
+		一个\textbf{群}(group)是一个非空集合$G$,并且定义了一个$G \times G \to G$的二元映射(*),满足:
+		
+		(1)结合律:$a * (b * c) = (a * b) * c, \forall a,b,c \in G$
+		
+		(2)存在幺元(单位元):$\exists e \in G, s.t. e * a = a, \quad \forall a \in G$
+		
+		(3)存在逆元:$\forall a \in G, \exists b \in G, s.t. \quad b * a = e$.常记$b = a^{-1}$.
+		
+	\end{Group}
+	
+	上述群常被记为$(G , *)$.有时也称运算$(*)$为"乘法运算,同理$*$也常常被省略不写.此外注意,上述定义中的幺元与逆元都是左乘意义下的,但可以证明右乘的情况具有相同的结果.
+	
+	如果一个群还满足交换律,即$ab=ba$,那么称该群为交换群或Abel群.此时群上定义的运算也被称为"加法",幺元记为$0$,逆元称为$-a$.
+	
+	在应用中,群的定义与"操作"非常贴合.例如三维特殊正交群$\mathrm{SO(3)}$是三维空间中全体旋转变换构成的集合,其中定义的乘法就是两个旋转变换的复合.不难验证这个乘法满足群的定义.
+	
+	群之间有两个重要的关系:同构与同态.
+	
+	\newtheorem*{homomorphism}{定义}
+	
+	\begin{homomorphism}
+		
+		设有两个群$G,G_1$.若存在一个$G \to G_1$的映射$\varphi$保持群运算,即满足如下条件:
+		
+		\[\forall a,b \in G, \varphi(ab) = \varphi(a) \varphi(b) \]
+		
+		那么称$\varphi$是由$G$到$G_1$的一个\textbf{群同态}.
+		
+		若$\varphi$既单又满,那么称之为\textbf{同构}.
+		
+	\end{homomorphism}
+	
+	可以证明,同态的一定将单位元映为单位元,并将逆元映为逆元.由此可见,从某种意义上说,群比群的同态群更小(意会!).
+	
+	如果群的同态是从群$G$到某个线性空间$V$上的一般线性群$\mathrm{GL(V)}$的映射,那么我们称之为群$G$的\textbf{表示}.换句话说,群的表示是将群的元素与线性变换的矩阵对应起来.
+	
+	意识到写这些没多大意义,有关的内容本来就已经很通俗易懂了,那就算了吧(
+	
+	\newpage
+	
+	
+	
+	
+	
+	
+	
+\subsection*{11 拓扑空间\cite{LiangKunMiao}}
+	
+	本来想单刀直入微分流形,结果发现自己已经把开集是啥给忘掉了(悲),简直对不起自己高数考的93了
+	
+	那就重新开始吧.
+	
+	在高等数学(分析)中我们知道可以将$\mathbb{R}^n$的子集按照开集与非开集划分.自然地,我们会试图把这个划分方法推广到其他空间中的集合上.然而在其他集合上好在我们可以从$\mathbb{R}^n$中开集的定义中抽象出几个更为"本质"的性质.
+	
+	\begin{enumerate}
+		\item $\mathbb{R}^n$和空集都是开集
+		\item 有限个开集的交仍然是开集
+		\item 任意个开集的并都是开集
+	\end{enumerate}
+	
+	把这三个性质推广,我们就可以给任意的集合定义开子集的概念.定义了开子集的集合叫\textbf{拓扑空间}.用与机神最为接近的抽象数学语言写出来就是:
+	
+	\newtheorem*{topology}{定义}
+	
+	\begin{topology}
+		
+		非空集合$X$的一个\textbf{拓扑}(topology)$\mathscr{T}$是$X$的若干子集的集合,满足:
+		
+		\begin{enumerate}
+			
+			\item $X, \emptyset \in \mathscr{T}$
+			
+			\item 若$O_i \in \mathscr{T}$,则$\bigcap_{i=1}^n O_{i} \in \mathscr{T}$.
+			
+			\item 若$\forall \alpha, O_{\alpha} \in \mathscr{T}$,则$\bigcup_{\alpha} O_{\alpha} \in \mathscr{T}$,这里$\alpha$所在的指标集可以是无穷集.
+		\end{enumerate}
+		
+	\end{topology}
+	
+	回到人话,如果我们能找到一种符合前述的三个条件的从集合$X$中找出特定子集的方法,那么我们可以说找到了$X$的一个拓扑.
+	
+	\newtheorem*{topologicalSpace}{定义}
+	
+	\begin{topologicalSpace}
+		
+		指定了拓扑$\mathscr{T}$的集合$X$称为\textbf{拓扑空间}(topological space).设$O$是拓扑空间$X$的子集,若$O \in \mathscr{T}$,则称$O$为\textbf{开子集}(简称\textbf{开集}).
+		
+	\end{topologicalSpace}
+	
+	常见的拓扑有离散拓扑,凝聚拓扑等,但是这几个都是非常trivial的拓扑,不写了(
+	
+	类似于线性子空间,我们自然想研究$X$子集上的拓扑.设$(X,\mathscr{T})$是拓扑空间,$A$为$X$的任一非空子集,当然我们也可以指定$A$上的拓扑$\mathscr{S}$(这是S),使$A$成为拓扑空间.设$\mathscr{S} = \{V \subset A | V \in \mathscr{T}\}$是自然的.但是如果$A \notin \mathscr{T}$,那么这个定义与拓扑的第一条性质矛盾.一个巧妙的定义是:
+	
+	\[\mathscr{S} := \{V \subset A | \exists O \in \mathscr{T} s.t. V = A \cap O\}\]
+	
+	或者等价的形式:
+	
+	\[\mathscr{S} := \{A \cap V | V \in \mathscr{T}\}\]
+	
+	可以证明,即使$A\notin\mathscr{T}$,$\mathscr{S}$也构成了$A$的一个拓扑.
+	
+	此时$\mathscr{S}$称为$A$的由$\mathscr{T}$导出的\textbf{诱导拓扑}.$(A,\mathscr{S})$称为$(X,\mathscr{T})$的\textbf{拓扑子空间}.
+	
+	有点晚了,早睡养生,明天再学(
 	
 	
 	
@@ -646,6 +808,9 @@
 		\bibitem{LiangKunMiao} 梁昆淼,力学(理论力学部分)[M],不知道哪里,不知道什么出版社,不知道什么时候
 		\bibitem{ShuYouSheng} 舒幼生,力学[M],北京,北京大学出版社,2005.09
 		\bibitem{GTM023} W.H.Greub,Linear Algebra(Third Edition)[M],New York,Springer,1967
+		\bibitem{Anorld} Anorld著,齐民友译,经典力学的数学方法[M],北京,高等教育出版社,2006.01
+		\bibitem{LiangCanBin} 梁灿彬,周彬著,微分几何入门与广义相对论(上)[M],北京,科学出版社,2006.01
+		\bibitem{ZhangXianKe} 张贤科,许甫华著,高等代数学[M],北京,清华大学出版社,2004.07
 	\end{thebibliography}
 	
 	
