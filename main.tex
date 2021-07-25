@@ -684,7 +684,7 @@
 	
 	zyf老师的笑话:当年我还在上大学的时候,我们课上群论,结果上课的时候来了个人,从头到尾一直记,非常认真,令数院学生都叹为观止.结果下课的时候该人愤怒地破口大骂:"什么群论,净是数学!"我才明白他可能把这门课理解成什么"群众运动论"了.........
 
-	这里一部分参考了zyf官方推荐的张贤科高等代数学,讲的挺好的,很适合物理壬.....然后还会塞一部分刘川理力的附录,可能还会塞李新征老师的群论或者直接抽代......我也不知道要哪几本,物理的觉得太浅,数学的看不懂orz
+	这里一部分参考了zyf官方推荐的张贤科高等代数学\cite{ZhangXianKe},讲的挺好的,很适合物理壬.....然后还会塞一部分刘川理力\cite{LiuChuan}的附录,可能还会塞李新征老师的群论或者直接抽代......我也不知道要哪几本,物理的觉得太浅,数学的看不懂orz
 	
 	这里也就图个乐,看看概念了解一下,真要学物院还有两门研本课李群与李代数,群论在物理学中的运用.........orz
 	
@@ -740,9 +740,13 @@
 	
 \subsection*{11 拓扑空间\cite{LiangKunMiao}}
 	
+	梁老师的这本书实在是物理壬居家旅行杀人放火必备神器,从实数的性质一直延伸到广义相对论和啥啥奇怪的时空无所不包,例子还特多,很适合物理壬看不懂证明只会看例子的习惯(逃)
+	
 	本来想单刀直入微分流形,结果发现自己已经把开集是啥给忘掉了(悲),简直对不起自己高数考的93了
 	
 	那就重新开始吧.
+	
+	首先来点映射:考虑一个映射$f:~X\to Y$,若$Y$中的任意元素的逆像不多于一个(可以没有),则称$f$是\textbf{一一的}(one-to-one);若$Y$中的任意元素都有至少一个逆像,则称$f$是\textbf{到上的}(onto).
 	
 	在高等数学(分析)中我们知道可以将$\mathbb{R}^n$的子集按照开集与非开集划分.自然地,我们会试图把这个划分方法推广到其他空间中的集合上.然而在其他集合上好在我们可以从$\mathbb{R}^n$中开集的定义中抽象出几个更为"本质"的性质.
 	
@@ -795,12 +799,230 @@
 	
 	此时$\mathscr{S}$称为$A$的由$\mathscr{T}$导出的\textbf{诱导拓扑}.$(A,\mathscr{S})$称为$(X,\mathscr{T})$的\textbf{拓扑子空间}.
 	
-	有点晚了,早睡养生,明天再学(
+	现在我们给出一般拓扑空间中连续映射的两个等价定义:
 	
+	\newtheorem*{continuous}{定义}
 	
+	\begin{continuous}
+		
+		a. 设$(X,\mathscr{T}),(Y,\mathscr{S})$为拓扑空间,若$\forall O \in \mathscr{S}, f^{-1}[O] \in \mathscr{T}$,则称$f$是\textbf{连续的}(continuous).
+		
+		b. 设$(X,\mathscr{T}),(Y,\mathscr{S})$为拓扑空间,若$\forall G' \in \mathscr{S}$且$f(x) \in G'$,有$\exists G \in \mathscr{T}$且$f[G] \subset G'$,则称$f$\textbf{在点$x$处连续}.若$f$在所有的$x \in X$连续,则称$f$\textbf{连续}.
+		
+	\end{continuous}
+	
+	前一个定义翻译成人话就是"开集的原象是开集".老数分习题了.后一个仔细想一下$\mathbb{R}$中的情况与欧氏范数,就能发现是一致的.
+	
+	接下来是一些推广.
+	
+	\newtheorem*{homeomorphic}{定义}
+	
+	\begin{homeomorphic}
+		设$(X,\mathscr{T}),(Y,\mathscr{S})$为拓扑空间,若存在一一到上的映射$f~:X \to Y$,且$f,f^{-1}$都连续,那么称$(X,\mathscr{T}),(Y,\mathscr{S})$\textbf{互相同胚}.此时映射$f$称为$(X,\mathscr{T})$到$(Y,\mathscr{S})$的\textbf{同胚映射},简称\textbf{同胚}(homeomorphism)
+	\end{homeomorphic}
+	
+	\newtheorem*{neighborhood}{定义}
+	
+	\begin{neighborhood}
+		
+		设$x \in X$,$N \subset X$,若$\exists O \in \mathscr{T} s.t. x \in O \subset N$,则称$N$是$x$的一个\textbf{邻域}(neighborhoood).
+		
+		再设$A \subset X$,若$\exists O \in \mathscr{T} s.t. A \subset O \subset N$,则称$N$是$A$的一个\textbf{邻域}.
+		
+	\end{neighborhood}
+	
+	还有有一个定理:
+	
+	\newtheorem*{neighborhoodEquivalence}{定理}
+	
+	\begin{neighborhoodEquivalence}
+		$A$是开集$\Leftrightarrow$ $\forall x \in A, A$是$x$的邻域
+	\end{neighborhoodEquivalence}
+	
+	可见,以上开集的定义与数分上用$\varepsilon-\delta$的定义是一致的.
+	
+	\newtheorem*{closedSet}{定义}
+	
+	\begin{closedSet}
+		设$C \subset X$,若$C$的补集$-C \in \mathscr{T}$,则称$C$是\textbf{闭集}(closed set).
+	\end{closedSet}
+	
+	\newtheorem*{closetSetProperty}{定理}
+	
+	\begin{closetSetProperty}
+		
+		闭集具有如下性质:
+		
+		\begin{enumerate}
+			
+			\item 任意个闭集的交集是闭集
+			
+			\item 有限个闭集的并集是闭集
+			
+			\item $X$和$\emptyset$是闭集
+			
+		\end{enumerate}
+		
+	\end{closetSetProperty}
+	
+	\newtheorem*{connected}{定义}
+	
+	\begin{connected}
+		若拓扑空间$(X,\mathscr{T})$除了$X$和$\emptyset$以外没有既开又闭的子集,则称它是\textbf{连通的}(connected).
+	\end{connected}
+	
+	需要指出的是与直观感受更为一致的是道路连通的概念,它与刚刚定义的连通有"微妙的区别"(一般的拓扑空间中道路连通是比连通更强的条件,不过对于物理壬最喜欢的流形来说二者是的等价的)
+	
+	\newtheorem*{closure}{定义}
+	
+	\begin{closure}
+		集合$A$的\textbf{闭包}(closure)$\overline{A}$是所有含$A$的闭集的交集,即
+		\[\overline{A} := \bigcap_{C \supset A, C\text{为闭集}} V\]
+	\end{closure}
+	
+	\newtheorem*{interior}{定义}
+	
+	\begin{interior}
+		集合$A$的\textbf{内部}(interior)$\im(A)$是$A$所有开子集的并集,即
+		\[\im(A) := \bigcap_{O \subset A, O \in \mathscr{T}} O\]
+	\end{interior}
+	
+	\newtheorem{boundary}{定义}
+	
+	\begin{boundary}
+		集合$A$的\textbf{边界}(boundary)$\dot{A}:=\overline{A}-\im(A)$,其中的元素称为\textbf{边界点}.$\dot{A}$也记为$\partial A$.
+	\end{boundary}
+	
+	可以证明,$\overline{A}, \im(A), \dot{A}$具有跟数分书上写的$\mathbb{R}^n$中的一样的性质(懒得写了).
+	
+	\newtheorem*{openCover}{定义}
+	
+	\begin{openCover}
+		设$A \subset X$,若$X$的开子集的集合$\{O_{\alpha}\}$满足$A \subset \bigcap_{\alpha} O_{\alpha}$,那么称$X$是$A$的一个\textbf{开覆盖}(open cover).
+	\end{openCover}
+	
+	这章本来后面还有一节紧致性的选读内容,不过既然是选读那应该就跟物理关系不大,那就...........
 	
 	
 	\newpage	
+	
+	
+	
+	
+	
+	
+\subsection*{100 流形和张量场}
+	
+	挂一波Anorld, 四 句 话 学 会 微 分 流 形
+	
+	可能这就是神圣的红色(不但是soviet的颜色,还是神圣火星的颜色)数理大贤者吧
+	
+	所以还是按照梁老师的书来吧(
+	
+	发现b站上梁灿彬老师的网课讲的比他的书更容易理解,一部分内容也参考了网课上的内容.
+	
+	好了,大 的 药 来 惹 !
+	
+	流形的背景就是物理壬最喜欢的要多少阶可微就多少阶可微的"连续统",类似于曲线,曲面还是什么超平面之类的东西.显然这些东西都应该有拓扑结构,但这还不够.拓扑空间上只定义了开集,但是平常我们都顺手点来点去(指内积)切来切去(指切触)去的,为了实现这种物理壬最喜欢的东西,我们还得在上面引入微分结构.于是我们就有了微分流形.
+	
+	\newtheorem*{easyManifold}{疋㐅\cite{Hassani}}
+	
+	\begin{easyManifold}
+		一个微分流形,就是一个点集,集合里面的每一个点都要多光滑有多光滑.并且每一个点的局部看上去都像个$n$维空间.比如一个球面,一个Mobius带等等.
+	\end{easyManifold}
+	
+	虽然这个定义是对机械神的严谨的严重亵渎,但是在被神圣的等离子炮蒸发到数学地狱之前我们还是可以用这个说法对流形有个直观的认识.
+	
+	\newtheorem*{differentiableManifold}{定义}	
+	
+	\begin{differentiableManifold}
+		
+		设有一个拓扑空间$M$,若$M$有开覆盖$\{O_{\alpha}\}$,且满足:
+		
+		\begin{enumerate}
+			
+			\item 存在$V_{\alpha} \subset \mathbb{R}^n$且$V_{\alpha}$在通常拓扑下为开集,使得每一个$O_{\alpha}$都与$V_{\alpha}$有同胚$\psi_{\alpha}~:O_{\alpha} \to V_{\alpha}$
+			
+			\item (\textbf{相容性(compatibility)条件})若开覆盖中的两个开集$O_{\alpha} \cap O_{\beta} \ne \emptyset$,则复合映射$\psi_{\beta} \circ \psi_{\alpha}^{-1}$是$C^{\infty}$(光滑)的.
+			
+		\end{enumerate}
+	
+		则称$M$为\textbf{$n$维微分流形}($n$-dimensional diffeerentiable manifold).
+		
+	\end{differentiableManifold}
+	
+	(不太明白这里取$\mathbb{R}^n$子集的意义?)
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{pics/QQ截图20210725215644}
+		\caption{梁老师板书(2005年,av画质),示意了各个映射的关系}
+		\label{fig:qq20210725215644}
+	\end{figure}
+	
+	这里维数的意义更应该在"自由度"的意义下去理解.比如按照刚才的定义,$\mathbb{R}^3$中的球面应是一个二维流形,而不是三维的.
+	
+	注意到$\psi_{\beta} \circ \psi_{\alpha}^{-1}$是$V_{\alpha}$到$V_{\beta}$两个$\mathbb{R}^n$中子集的映射,是一个$n$元向量函数,故上述定义是自洽的.
+	
+	虽然在流形上尚未定义坐标系,但是注意到$O_{\alpha}$与$V_{\alpha} \subset \mathbb{R}^n$同胚,故一个很自然的做法是将流形上点$p \in O_{\alpha}$的\textbf{坐标}定义为$\mathbb{R}^n$中$\psi_{\alpha}(p)$的坐标$x^{\mu}$.这样,我们说$(O_{\alpha},\psi_{\alpha})$构成了一个(局域)\textbf{坐标系}(coordinate system),其\textbf{坐标域}(coordinate patch)为$O_{\alpha}$.如果同时有$p \in O_{\beta}$,那么$p$可以有另一个坐标$x'^{\mu}$.此时,$n$元向量函数$\psi_{\beta} \circ \psi_{\alpha}^{-1}$就叫做\textbf{坐标变换}(coordinate transformation).
+	
+	这是光滑流形的一般定义,不过物理上的流形性质比这还要好:作为拓扑空间,$M$是Hausdorff的和第二可数的.(看不懂)
+	
+	\newtheorem*{chart}{定义}
+	
+	\begin{chart}
+		坐标系$(O_{\alpha},\psi_{\alpha})$在数学上又叫\textbf{图}(chart).
+	\end{chart}
+	
+	显然这跟图论里面的图(graph)没有半毛钱关系.
+	
+	\newtheorem*{altas}{定义}
+	
+	\begin{altas}
+		满足微分流形定义的全体图的集合$\{(O_{\alpha},\psi_{\alpha})\}$称为\textbf{图册}(altas).
+	\end{altas}
+	
+	一个图册中的任意两个图都是相容的.
+	
+	现在我们可以设想有两个图册$\{(O_{\alpha},\psi_{\alpha})\},\{(O'_{\beta},\psi'_{\beta})\}$能够将拓扑空间$M$定义成流形.这时有两种可能:
+	
+	1.两个图册互不相容,也就是存在$O_{\alpha}$和$O'_{\beta}$使得$O_{\alpha} \cap O'_{\beta} \ne \emptyset$,且$\psi_{\alpha}$和$\psi'_{\beta}$不满足相容性条件.这时我们说两个图册把$M$定义为两个\textit{不同的}微分流形,并且说这两个图册代表着不同的\textbf{微分结构}.
+	
+	2.两个图册是相同的.这时我们说它们把$M$定义成同一个流形.于是我们干脆把所有跟这两个图册相容的图册都取并集,构造出一个最大的图册.这样我们就在流形$M$上进行任意坐标变换.
+	
+	\newtheorem*{CrMap}{定义}
+	
+	\begin{CrMap}
+		设$M,M'$是两个微分流形,若$f~: M \to M'$满足$\psi'_{\beta} \circ f \circ \psi_{\alpha}$是$C^{r}$的,则称$f$为\textbf{$C^{r}$类映射}.
+	\end{CrMap}
+	
+	相容性表明上述定义与坐标系的选择无关.
+	
+	\newtheorem*{diffeomorphicToEachOther}{定义}
+	
+	\begin{diffeomorphicToEachOther}
+		
+		设$M,M'$为微分流形,若$\exists f~: M \to M'$,满足:
+		
+		\begin{enumerate}
+			
+			\item $f$是一一到上的
+			
+			\item $f,f^{-1}$是$C^{\infty}$的
+			
+		\end{enumerate}
+		
+		那么称$M,M'$\textbf{互为微分同胚}(diffeomorphic to each other),$f$称为$M$到$M'$的\textbf{微分同胚映射},简称\textbf{微分同胚}(diffeomorphism).
+		
+	\end{diffeomorphicToEachOther}
+	
+	微分同胚是流形间映射的最高要求.
+	
+	若$M' = \mathbb{R}$,我们称此时的微分同胚$f$为$M$上的\textbf{函数}(function)或$M$上的\textbf{标量场}(scalar field).若$f$是$C^{\infty}$的,则成为$M$上的光滑函数.$M$上全体光滑函数的集合记为$\mathscr{F}_{M}$或$\mathscr{F}$.今后用到的函数都是这种函数(物理壬狂喜!).
+	
+	
+	
+	\newpage
 	
 	\begin{thebibliography}{?}
 		\bibitem{LiuChuan} 刘川,理论力学[M],北京,北京大学出版社,2019.09
@@ -811,6 +1033,7 @@
 		\bibitem{Anorld} Anorld著,齐民友译,经典力学的数学方法[M],北京,高等教育出版社,2006.01
 		\bibitem{LiangCanBin} 梁灿彬,周彬著,微分几何入门与广义相对论(上)[M],北京,科学出版社,2006.01
 		\bibitem{ZhangXianKe} 张贤科,许甫华著,高等代数学[M],北京,清华大学出版社,2004.07
+		\bibitem{Hassani} S.Hassani,Mathematical Physics[M],New York,Springer,2013
 	\end{thebibliography}
 	
 	
