@@ -545,7 +545,7 @@
 	
 	
 	
-\section*{10 哈密顿力学的数学基础}
+\section*{10 数学基础}
 	
 	试图堆砌数学以掩盖自己摸鱼了大半天的事实.或许会学到简单的流形,然后就跑回正轨.
 	
@@ -913,7 +913,7 @@
 	
 \subsection*{100 流形和张量场}
 	
-	挂一波Anorld, 四 句 话 学 会 微 分 流 形
+	挂一波Anorld,\quad 四\quad 句\quad 话\quad 学\quad 会\quad 微\quad 分\quad 流\quad 形
 	
 	可能这就是神圣的红色(不但是soviet的颜色,还是神圣火星的颜色)数理大贤者吧
 	
@@ -921,7 +921,9 @@
 	
 	发现b站上梁灿彬老师的网课讲的比他的书更容易理解,一部分内容也参考了网课上的内容.
 	
-	好了,大 的 药 来 惹 !
+\subsubsection*{0 微分流形}
+	
+	好了,大\quad 的\quad 药\quad 来\quad 惹\quad !
 	
 	流形的背景就是物理壬最喜欢的要多少阶可微就多少阶可微的"连续统",类似于曲线,曲面还是什么超平面之类的东西.显然这些东西都应该有拓扑结构,但这还不够.拓扑空间上只定义了开集,但是平常我们都顺手点来点去(指内积)切来切去(指切触)去的,为了实现这种物理壬最喜欢的东西,我们还得在上面引入微分结构.于是我们就有了微分流形.
 	
@@ -995,6 +997,8 @@
 	\begin{CrMap}
 		设$M,M'$是两个微分流形,若$f~: M \to M'$满足$\psi'_{\beta} \circ f \circ \psi_{\alpha}$是$C^{r}$的,则称$f$为\textbf{$C^{r}$类映射}.
 	\end{CrMap}
+
+	这个定义表明流形之间映射的连续程度由复合到对应的$\mathbb{R}^n$子集映射的连续程度决定.
 	
 	相容性表明上述定义与坐标系的选择无关.
 	
@@ -1022,6 +1026,186 @@
 	
 	
 	
+	
+	
+	\newpage
+	
+\subsubsection*{1 切矢和切矢场}
+	
+	我们在普物的学习中已经充分掌握了矢量以及矢量的微积分.现在我们想要把这种有用的工具推广到流形上.
+	
+	一开始我的想法很简单,微分流形上的开集到$\mathbb{R}^n$的子集有同胚映射,那么直接把$\mathbb{R}^n$的向量按照同胚映射映到流形上不就完了....然后我意识到图之间的坐标变换不一定是线性的,从而在坐标变换下向量的运算性质无法得到保证,所以还是得用其他的方法.这也表明了在一般的流形上"空间"和向量场不能像一般的线性空间中视为等同.具体而言,问题出在同胚上-$n$维流形可能与$\mathbb{R}^n$不同胚.
+	
+	为了把矢量的概念推广到流形上,我们应该找出矢量的一些更为抽象而普适的性质.物理上,矢量是有大小,有方向的量.在$\mathbb{R^n}$的情况中,每一个矢量都可以按它的方向诱导一个多元函数的方向导数,而大小可以通过将矢量的模视为单位长度来体现(有点绕,但是我觉得是合理的).这样我们就可以进行定义:
+	
+	\newtheorem*{vectorOnManifold}{定义}
+	
+	\newtheorem*{vectorSpaceOnManifold}{定理}
+	
+	\begin{vectorOnManifold}
+
+		设$v$是$\mathscr{F}_M \to \mathbb{R}$的映射,如果$\forall f,g \in \mathscr{F}_M, \alpha,
+		\beta \in \mathbb{R}$,$v$满足:
+		
+		\begin{enumerate}
+			
+			\item (线性性) \[v(\alpha f + \beta g) = \alpha v(f) + \beta v(g)\]
+			
+			\item (Leibnitz律) \[v(f g) = f(p) v(g) + g(p) v(f)\]
+			
+		\end{enumerate}
+		
+		则称映射$v$为点$p \in M$的一个\textbf{矢量}(vector).
+		
+	\end{vectorOnManifold}
+	
+	\begin{vectorSpaceOnManifold}
+		
+		记$V_{p}$为$n$维流形$M$中$p$点的所有矢量的集合,那么$V_{p}$在如下定义下构成线性空间,且$\dim V_{p} = n$:
+		
+		\begin{enumerate}
+			
+			\item \[(v_{1} + v_{2})(f) = v_{1}(f) + v_{2}(f), \forall f \in \mathscr{F}_{M}, v_1,v_2 \in V_{p}\]
+			
+			\item \[(\alpha v)(f) = \alpha \cdot v(f), \forall f \in \mathscr{F}_{M}, v \in V_{p}, \alpha \in \mathbb{R}\]
+			
+			\item 定义零元$\underline{0}$满足
+			\[\underline{0} (f) = 0, \forall f \in \mathscr{F}_{M}\]
+			
+		\end{enumerate}
+		
+	\end{vectorSpaceOnManifold}
+	
+	\begin{proof}
+		
+		由上述定义易验证构成线性空间.下证维数为$n$.
+		
+		任选坐标系使坐标域含$p$.现在考虑如下的$n$个矢量:
+		
+		\[X_{\mu}(f) := \left.\frac{\partial}{\partial x^{\mu}} (f \circ \psi^{-1})\right|_{p}\]
+		
+		其中$\psi$为坐标域到$\mathbb{R}^n$子集的同胚.
+		
+		现在我们来证明它们线性无关.设
+		
+		\[\alpha^{\mu}X_{\mu} = 0\]
+		
+		现考虑函数$f_{\nu} \circ \psi^{-1}~:(x^1,x^2,\cdots,x^n) \to x^{\nu}$,将上一等式作用于$f_{\nu}$得
+		
+		\[RHS = 0\]
+		
+		\[LHS = \alpha^{\mu} \left.\frac{\partial x^{\nu}}{\partial x^{\mu}}\right|_{p} = \alpha^{\mu} \delta^{\nu}_{~\mu} = \alpha^{\nu}\]
+		
+		故$\alpha^{\nu} = 0$,即$X_{\mu}$线性无关.
+		
+		而最难的部分是证明全空间的元素都可以由$X_{\mu}$线性表出.这里我们直接
+		
+		$\mathrm{import~Wald.General\_Relativity.P16}\cite{Wald}$
+		
+		得出结论
+		
+		\[\forall v \in V_{p}, v = v^{\mu} X_{\mu}, \text{where}~v^{\mu} = v(f_{\mu}).\]
+		
+		故$\dim V_{p} = n$.
+		
+	\end{proof}
+	
+	关于不同坐标系间的坐标变换,我们有如下定理:
+	
+	\newtheorem*{coordinateTransform}{定理}
+	
+	\begin{coordinateTransform}
+		
+		设$\{x^\mu\},\{x'^{\nu}\}$为两个坐标系且坐标域交集非空,$p$为交集中的一点,则坐标分量满足变换关系
+		
+		\[v'^{\nu} = \left.\frac{\partial x'^{\nu}}{\partial x^{\mu}}\right|_{p} v^{\mu}\]
+		
+	\end{coordinateTransform}
+	
+	这由锁链法则与简单的线性代数易得.
+	
+	现在我们讨论曲线与曲线的切矢.自然地可以定义\textbf{曲线}(curve):$l~:I \to M$,其中$I$为$\mathbb{R}$上的区间.无特殊说明下$l$都指光滑曲线,即$C^{\infty}$的.需要注意的是,这里的曲线与直观上的曲线不同于一般我们"看到"的曲线是流形的子集,但这里定义的曲线是映射.在保像集的前提下将$I$非退化地映为$I'$,叫做曲线的\textbf{重参数化}(这相当于给直观的曲线换一套参数表示).
+	
+	坐标系中,$\psi^{-1}$在$x^{\nu}$不变$(\nu \ne \mu)$下的限制映射称为$x^{\mu}$坐标线.
+	
+	\newtheorem{tangentVector}{定义}
+	
+	\begin{tangentVector}
+		
+		设$C(t)$是流形$M$上的曲线,则线上$C(t_{0})$点的切于曲线$C$的\textbf{切矢}(tangent vector)是$C(t_{0})$点的矢量,满足:
+		
+		\[T(f) = \left.\frac{\D(f \circ C)}{\D t}\right|_{t_0}\]
+		
+		切矢也常记为$\left.\frac{\partial}{\partial t}\right|_{C(t_0)}$.
+		
+	\end{tangentVector}
+	
+	注意到$x^{\mu}$坐标线的基矢作用在任意的$f$上正好就是$\left.\frac{\partial (f \circ \psi^{-1})}{\partial t}\right|_{C(t_0)}$,从中可以看出上述记法的合理性.
+	
+	在流形上我们称线性相关的二矢量为\textbf{互相平行的}(parallel).
+	
+	显然$V_{p}$中的任意元素都可以视为过$p$的某曲线的切矢.因此$p$点的矢量也称为\textbf{切矢量}(tangent vector),$V_{p}$称为$p$点的\textbf{切空间}(tangent space).
+	
+	由定义可以看出,切空间与"位形"空间是对偶构造的.
+	
+	\newtheorem*{vectorField}{定义}
+	
+	\begin{vectorField}
+		设$A \subset M$,若给$A$中任意一点$p$指定一个$V_{p}$中的矢量,就得到一个定义在$A$上的\textbf{矢量场}(vector field).
+	\end{vectorField}
+	
+	不妨设$f$是$M$上的函数,$v$是$M$上的矢量场,则$v$在任意一点$p$的值$v|_{p}$将$f$映到一个实数$v|_{p}(f)$.因此,矢量场可以视为把$f$映成函数$v(f)$的映射.
+	
+	\newtheorem{CrVectorField}{定义}
+	
+	\begin{CrVectorField}
+		若$M$上的矢量场$v$作用到任意$C^{\infty}$类函数得到$C^{r}$类函数,则称$v$是\textbf{$C^{r}$类的}.若得到光滑函数,则称$v$是\textbf{光滑的}.
+	\end{CrVectorField}
+	
+	坐标基矢$X_{\mu} = \frac{\partial}{\partial x^{\mu}}$构成坐标域上的$n$个光滑矢量场,称为\textbf{坐标基矢场}.
+	
+	\newtheorem{integralCurve}{定义}
+	
+	\begin{integralCurve}
+		曲线$C(t)$叫矢量场$v$的\textbf{积分曲线}(integral curve),若其上每一点的切矢都等于该点的$v$值.
+	\end{integralCurve}
+	
+	\newtheorem*{uniquenessOfIntegralCurve}{定理}
+	
+	\begin{uniquenessOfIntegralCurve}
+		设$v$是$M$上的光滑矢量场,则$\forall p \in M$,必有$v$的唯一的积分曲线$C(t)$经过$p$.
+	\end{uniquenessOfIntegralCurve}
+	
+	除了这里已经写的,原书还涉及了一些群论的内容,但看上去跟物理没什么关系.接下来是对偶矢量与张量场,这些在线性代数课中都已经学过了,便不再赘述.
+	
+	(准确来说是数学读不下去了,学了流形以为自己可nb了跑回Anorld结果发现Lagrange力学的构造还没学完呢,更不用说Hamiton了(悲))
+	
+	
+	
+	
+	
+	\newpage
+	
+	
+\section*{11 Hamilton力学}
+	
+	如果只是限制在经典力学的框架里面,那么Lagrange力学和Newtond的矢量力学并没有什么高下之分,顶多是Lagrange力学对于有约束问题更方便一些.非矢量形式的力学,最主要的优势在于对更广阔的的物理体系的适用性.所以我们再介绍一种新的力学表述:Hamilton力学.
+	
+	\[\begin{cases}
+		\dot{q_{i}} = \frac{\partial H}{\partial p_{i}}\\
+		\dot{p_{i}} = -\frac{\partial H}{\partial q_{i}}
+	\end{cases}\]
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
 	
 	\begin{thebibliography}{?}
@@ -1034,6 +1218,7 @@
 		\bibitem{LiangCanBin} 梁灿彬,周彬著,微分几何入门与广义相对论(上)[M],北京,科学出版社,2006.01
 		\bibitem{ZhangXianKe} 张贤科,许甫华著,高等代数学[M],北京,清华大学出版社,2004.07
 		\bibitem{Hassani} S.Hassani,Mathematical Physics[M],New York,Springer,2013
+		\bibitem{Wald} R.M.Wald,General Relativity[M],Chicago,The University of Chicago Press,1984
 	\end{thebibliography}
 	
 	
