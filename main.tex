@@ -672,7 +672,9 @@
 	
 	至于多元函数的Legendre变换,与之完全相似,就不赘述了.
 	
-	Legendre变换在理论力学中的一大应用就是从Lagrange力学导出Hamiton力学.
+	实话实说,还不如说"把函数'重参数化'到对某些变量的偏导数上"来得简练.......
+	
+	Legendre变换在理论力学中的一大应用就是从Lagrange力学导出Hamilton力学.
 	
 	\newpage
 	
@@ -1191,17 +1193,54 @@
 	
 	如果只是限制在经典力学的框架里面,那么Lagrange力学和Newtond的矢量力学并没有什么高下之分,顶多是Lagrange力学对于有约束问题更方便一些.非矢量形式的力学,最主要的优势在于对更广阔的的物理体系的适用性.所以我们再介绍一种新的力学表述:Hamilton力学.
 	
+\subsection*{0 Hamilton正则方程的经典构造}
+	
+	我说怎么看了半天感觉这么膈应,结果突然意识到这tm又退回纯经典了......
+	
+	经典力学中,Lagrange函数$L$是一个$\mathbb{R}^n \times \mathbb{R}^n \times \mathbb{R}$到$\mathbb{R}$的函数,前$n$个自变量为$q_{i}$,接着是$\dot{q}_{i}$,最后是$t$.其全微分
+	
+	\[\D L = \frac{\partial L}{\partial q_{i}} \D q_{i} + \frac{\partial L}{\partial \dot{q}_{i}} \D \dot{q}_{i} + \frac{\partial L}{\partial t} \D t\]
+	
+	考虑到一般情况下动能$T$都是$\dot{q}_{i}$的正定二次型, 我们可以将$L$对$\dot{q}_{i}$进行 Legendre 变换:
+	
+	记对偶变元
+	
+	\[p_{i} := \frac{\partial L}{\partial \dot{q}_{i}}\]
+	
+	以及对偶函数
+	
+	\[H = p_{i}\dot{q}_{i} - L\]
+	
+	则有全微分
+	
+	\[\begin{aligned}
+		\D H &= p_{i} \D \dot{q}_{i} + \dot{q}_{i} \D p_{i} - \D L\\
+			 &= \dot{q}_{i} \D p_{i} - \frac{\partial L}{\partial q_{i}} \D q_{i} - \frac{\partial L}{\partial t} \D t\\
+			 &= \dot{q}_{i} \D p_{i} - \dot{p}_{i} \D q_{i} - \frac{\partial L}{\partial t} \D t
+	\end{aligned}\]
+	
+	最后一步利用了无广义力(系统可被 Lagrange 函数完全描述)情况下的 Lagrange 方程$\frac{\partial L}{\partial q_{i}} - \frac{\D}{\D t}\frac{\partial L}{\partial \dot{q}_{i}}$.
+	
+	考虑到Lagrange方程已在最后一步中得到体现,因此我们可以说如下从全微分关系导出的方程组能够等价地描述力学系统的演化
+	
 	\[\begin{cases}
 		\dot{q_{i}} = \frac{\partial H}{\partial p_{i}}\\
 		\dot{p_{i}} = -\frac{\partial H}{\partial q_{i}}
 	\end{cases}\]
 	
+	这个方程组称为\textbf{Hamilton正则方程}( canonical equations of Hamilton ).对偶函数$H~: \mathbb{R}^n \times \mathbb{R}^n \times \mathbb{R} \to \mathbb{R}$称为\textbf{Hamilton函数}( Hamiltonian ).显然, Hamilton 正则方程作为一组形式十分对称的一阶微分方程组,比 Lagrange 方程优美而神圣多了,这就是为什么称为"正则"方程.
 	
+	结合正则方程,从$H$的全微分里面我们还可以得到
 	
+	\[\frac{\D H}{\D t} = \frac{\partial H}{\partial p_{i}} \dot{p}_{i} - \frac{\partial H}{\partial q_{i}} \dot{q}_{i} - \frac{\partial L}{\partial t} \D t = \frac{\partial H}{\partial t}= - \frac{\partial L}{\partial t}\]
 	
+	可见,Lagrange函数不含时间时$H$为常数,对应能量守恒.
 	
+	从正则方程的对称形式中可以看出,在 Hamilton 力学的框架中, "坐标" 和 "动量" 的概念不是一成不变的,而是可以"互换"的(刘川书上的,意会是意会到了,但具体还是不太懂).更准确的称呼是广义坐标与广义动量互为\textbf{共轭变量}.一个$n$个自由度的系统,我们有$n$对共轭变量,且系统的运动状态由这$2n$个变量完全描述.以这$2n$个变量为坐标,构成了$2n$为的相空间(从现代的角度上看,考虑到相空间的拓扑结构,更应该称为相流形( phase manifold )).
 	
+	(写到这里编译一下突然报出一大堆提示,排查了一下发现好像中英混合输入的时候得多打几个空格,不然TeX无法给文本正确分词以进行换行?)
 	
+	今天有点事情,学的不多.......而且 Goldestein\cite{Goldestin} 里面好像对 Hamiltonl 力学讲的比较细致,或许我应该再看看orz
 	
 	
 	
@@ -1210,15 +1249,16 @@
 	
 	\begin{thebibliography}{?}
 		\bibitem{LiuChuan} 刘川,理论力学[M],北京,北京大学出版社,2019.09
-		\bibitem{Landau} Landau,Lifshitz著,李俊峰,鞠国兴译,力学(第五版)[M],北京,高等教育出版社,2007.04
+		\bibitem{Landau} Landau, Lifshitz著,李俊峰,鞠国兴译,力学(第五版)[M],北京,高等教育出版社,2007.04
 		\bibitem{LiangKunMiao} 梁昆淼,力学(理论力学部分)[M],不知道哪里,不知道什么出版社,不知道什么时候
 		\bibitem{ShuYouSheng} 舒幼生,力学[M],北京,北京大学出版社,2005.09
-		\bibitem{GTM023} W.H.Greub,Linear Algebra(Third Edition)[M],New York,Springer,1967
-		\bibitem{Anorld} Anorld著,齐民友译,经典力学的数学方法[M],北京,高等教育出版社,2006.01
-		\bibitem{LiangCanBin} 梁灿彬,周彬著,微分几何入门与广义相对论(上)[M],北京,科学出版社,2006.01
-		\bibitem{ZhangXianKe} 张贤科,许甫华著,高等代数学[M],北京,清华大学出版社,2004.07
-		\bibitem{Hassani} S.Hassani,Mathematical Physics[M],New York,Springer,2013
-		\bibitem{Wald} R.M.Wald,General Relativity[M],Chicago,The University of Chicago Press,1984
+		\bibitem{GTM023} W.H.Greub, Linear Algebra(Third Edition)[M], New York, Springer, 1967
+		\bibitem{Anorld} Anorld著,齐民友译,经典力学的数学方法[M],北京,高等教育出版社, 2006.01
+		\bibitem{LiangCanBin} 梁灿彬,周彬著,微分几何入门与广义相对论(上)[M],北京,科学出版社, 2006.01
+		\bibitem{ZhangXianKe} 张贤科,许甫华著,高等代数学[M],北京,清华大学出版社, 2004.07
+		\bibitem{Hassani} S.Hassani, Mathematical Physics[M], New York, Springer, 2013
+		\bibitem{Wald} R.M.Wald, General Relativity[M], Chicago, The University of Chicago Press, 1984
+		\bibitem{Goldestin} H.Goldstein et al, Classical Mechanics[M], San Francisco, Addison Wesley, 不知道什么时候
 	\end{thebibliography}
 	
 	
