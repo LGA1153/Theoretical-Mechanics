@@ -1180,7 +1180,10 @@
 	
 	除了这里已经写的,原书还涉及了一些群论的内容,但看上去跟物理没什么关系.接下来是对偶矢量与张量场,这些在线性代数课中都已经学过了,便不再赘述.
 	
-	(准确来说是数学读不下去了,学了流形以为自己可nb了跑回Anorld结果发现Lagrange力学的构造还没学完呢,更不用说Hamiton了(悲))
+	(准确来说是数学读不下去了,学了流形以为自己可nb了跑回Anorld结果发现Lagrange力学的构造还没学完呢,更不用说Hamilton了(悲))
+	
+	ToDo:本章剩下的部分补充一下,Lie群,Lie代数,群,群表示,微分形式,流形上的Stokes公式,辛几何(欧姆尼赛亚在上啊,这要学到什么时候?)
+	
 	
 	
 	
@@ -1240,7 +1243,129 @@
 	
 	(写到这里编译一下突然报出一大堆提示,排查了一下发现好像中英混合输入的时候得多打几个空格,不然TeX无法给文本正确分词以进行换行?)
 	
-	今天有点事情,学的不多.......而且 Goldestein\cite{Goldestin} 里面好像对 Hamiltonl 力学讲的比较细致,或许我应该再看看orz
+	Landau还另外讲了一个 Routh 函数,大意就是如果$q_{j}$为循环坐标,则可以通过单独对$\dot{q}_{j}$进行 Legendre 变换得到新函数$R(p_{j},q_{i},\dot{q}_{i})
+	$,这个函数对$p_{i},q_{i}$是 Hamilton 函数,对其他变量是 Lagrange 函数.广义动量守恒可得$\dot{q}_{j}=C$,代入$R$则直接消去$p_{j},q_{j}$这一自由度.从而使系统得到简化.
+	
+	
+	
+	\newpage
+
+\subsection*{1 $\xi$符号与Liouville定理}
+
+	Hamilton力学里面广义坐标和广义动量十分平等,所以我们可以把它写成更加对称的形式:
+	
+	定义变量集$\xi^{j}$:
+	
+	\[\xi^{j} := 
+	\begin{cases}
+		q^{j},~j = 1,\cdots,n\\
+		p_{j-n},~j = n + 1,\cdots,2n
+	\end{cases}\]
+
+	那么我们可以将Hamilton正则方程写成:
+	
+	\[\dot{\xi}^{j} = \omega^{jk} \partial_{k}H\]
+	
+	其中$\partial_{k} = \partial / \partial_{k}$,$\omega$为$2n$阶的标准辛矩阵
+	
+	\[\omega = \begin{pmatrix}0&I_{n}\\-I_{n}&0\end{pmatrix}\]
+	
+	现在我们来考察相空间体积元$\wedge_{i} \D \xi^{i}$的演化.高数中我们知道$t$时刻的体积元与起始时刻的差一个Jacobi行列式
+	
+	\[J = \frac{\partial (\xi^{1}(t),\xi^{2}(t),\cdots,\xi^{n}(t))}{\partial (\xi^{1}(0),\xi^{2}(0),\cdots,\xi^{n}(0))}\]
+	
+	现在我们考虑对应的导数矩阵$M_{ij} = \frac{\partial \xi^{i}(t)}{\partial \xi^{j}(0)}$,显然$J = \det M$.
+	
+	运用矩阵函数公式$\ln \det M = \mathrm{tr} \ln M$,可得(此公式利用矩阵函数的计算方法易得)
+	
+	\[\frac{\D J}{\D t} = \frac{\D}{\D t} \E^{\ln \det M} = \frac{\D}{\D t} \E^{\mathrm{tr} \ln M} = J(t) \mathrm{tr} (M^{-1}\dot{M})\]
+	
+	而
+	
+	\[\mathrm{tr} (M^{-1}\dot{M}) = \frac{\partial \xi^{i}(0)}{\partial \xi^{j}(t)}\frac{\partial \dot{\xi}^{j}(t)}{\partial \xi^{i}(0)} = \frac{\partial \dot{\xi}^{j}(t)}{\partial \xi^{j}(t)}\]
+
+	代入Hamilton正则方程,得
+
+	\[\frac{\D J}{\D t} = J \frac{\partial \dot{\xi}^{j}(t)}{\partial \xi^{j}(t)} = \omega^{jk} \partial_{j} \partial_{k} H\]
+
+	考虑到$\omega$的反对称性,有
+	
+	\[\frac{\D J}{\D t} = 0 \]
+
+	也即相空间的体积元守恒.这就是作为统计力学基础的Liouville定理.
+	
+	特别是对于含时的Hamiltonian,Liouville定理依然成立.事实上,上述推导根本没有涉及Hamiltonian对时间的偏导.
+	
+	这里是参照刘川老师的证法,Landau的推导用了正则变换,Goldestein\cite{Goldestin}里面用了Possion括号.....或许我后面应该再看看
+	
+	
+	
+	
+	\newpage
+	
+	
+\subsection*{10 Possion括号}
+	
+	随便考察一个广义坐标,广义动量与时间的函数(力学量)$f(p,q,t)$,有
+	
+	\[\frac{\D f}{\D t} = \frac{\partial f}{\partial p_{i}} \dot{p}_{i} + \frac{\partial f}{\partial q_{i}} \dot{q}_{i} + \frac{\partial f}{\partial t}\]
+	
+	将正则方程代入,得
+	
+	\[\frac{\D f}{\D t} = -\frac{\partial f}{\partial p_{i}} \frac{\partial H}{\partial q_{i}} + \frac{\partial f}{\partial q_{i}} \frac{\partial H}{\partial p_{i}} + \frac{\partial f}{\partial t}\]
+	
+	这里出现了一个对称而圣洁的表达式$\frac{\partial f}{\partial q_{i}} \frac{\partial H}{\partial p_{i}} - \frac{\partial f}{\partial p_{i}} \frac{\partial H}{\partial q_{i}}$.仿造它的结构,我们定义力学量$f,g$的\textbf{Possion括号}:
+	
+	\[[f,g] := \frac{\partial f}{\partial q_{i}} \frac{\partial g}{\partial p_{i}} - \frac{\partial f}{\partial p_{i}} \frac{\partial g}{\partial q_{i}}\]
+	
+	优美吗?优美的触手佬都要漏机油了好吧(误)
+	
+	由此可见,力学量$f$是守恒量(运动积分)的充要条件是
+	
+	\[\frac{\partial f}{\partial t} + [f,H] = 0\]
+	
+	特别地,如果该力学量本身不显含t,则
+	
+	\[[f,H] = 0\]
+	
+	Possion括号的定义也可以用之前定义的$\omega$写成
+	
+	\[[f,g] := (\partial_{j} g) \omega^{jk} (\partial_{k} f)\]
+	
+	由此不难看出Possion括号是一个反对称的双线性函数.(或许这跟所谓的辛结构有所关联?然而我看不懂Anorld也不知道orz)
+	
+	Possion括号还具有如下两个形式:
+	
+	\begin{enumerate}
+		
+		\item (Lebnitz性) \[[f_{1}f_{2},g] = f_{1}[f_{2},g]+f_{2}[f_{1},g]\]
+		
+		\item (Jacobi等式) \[[f,[g,h]] + [g,[h,f]] + [h,[f,g]] = 0\]
+		
+	\end{enumerate}
+	
+	利用这些关系,任意两个已知函数的Posssion括号都可以化简为基本的Possion括号:
+	
+	\[[q_{i},q_{j}] = [p_{i},p_{j}] = 0,\quad [q_{i},p_{j}] = \delta_{ij}\]
+	
+	Possion括号的另一个重要的性质是\textbf{Possion定理}:如果$f,g$构成了力学系统的两个运动积分,那么它们的Possion括号也是运动积分.
+	
+	证明是trivial的.只要是额叶没被切掉做成机仆的人应该都能套套公式做出来.
+	
+	(今天到这了,发现自己菜的安详orz结果现在又有点想跑回去学数学了)
+
+	
+	
+	
+	
+	
+	
+	
+
+
+
+	
+	
 	
 	
 	
